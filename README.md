@@ -54,6 +54,12 @@ Run the full analysis on SPY:
 python analysis.py
 ```
 
+### Dynamic vs static VaR
+
+![Dynamic vs static VaR](figures/dynamic_vs_static_var.png)
+
+The GARCH-based dynamic VaR (orange) reacts to volatility clusters, tightening during calm periods and widening during stress. The static VaR (dashed blue) remains constant and consistently misprices tail risk.
+
 ---
 
 ## Tests
