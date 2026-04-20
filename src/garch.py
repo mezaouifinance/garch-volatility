@@ -73,3 +73,17 @@ def half_life(alpha: float, beta: float) -> float:
     if p >= 1.0:
         return float("inf")
     return np.log(0.5) / np.log(p)
+
+
+def forecast_variance(omega: float, alpha: float, beta: float, sigma2_last: float, r_last: float, h: int = 1) -> float:
+    """
+    Multi-step variance forecast.
+    For h=1: sigma^2_{t+1} = omega + alpha * r_t^2 + beta * sigma^2_t
+    For h>1: iterate using the unconditional mean for expected r^2.
+    """
+    p = persistence(alpha, beta)
+    var_unc = omega / (1.0 - p)
+    sigma2 = omega + alpha * r_last ** 2 + beta * sigma2_last
+    for _ in range(h - 1):
+        sigma2 = omega + p * sigma2 + (1 - p) * var_unc
+    return sigma2
